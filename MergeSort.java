@@ -1,36 +1,29 @@
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Arrays;
+import java.util.Scanner;
 
 class MergeSort
 {
-    // Merges two subarrays of arr[].
-    // First subarray is arr[l..m]
-    // Second subarray is arr[m+1..r]
     void merge(int arr[], int l, int m, int r)
     {
-        // Find sizes of two subarrays to be merged
         int n1 = m - l + 1;
         int n2 = r - m;
 
-        /* Create temp arrays */
         int L[] = new int[n1];
         int R[] = new int[n2];
 
-        /*Copy data to temp arrays*/
         for (int i = 0; i < n1; ++i)
             L[i] = arr[l + i];
         for (int j = 0; j < n2; ++j)
             R[j] = arr[m + 1 + j];
 
-        /* Merge the temp arrays */
-
-        // Initial indexes of first and second subarrays
         int i = 0, j = 0;
 
-        // Initial index of merged subarray array
         int k = l;
         while (i < n1 && j < n2) {
             if (L[i] <= R[j]) {
@@ -44,14 +37,12 @@ class MergeSort
             k++;
         }
 
-        /* Copy remaining elements of L[] if any */
         while (i < n1) {
             arr[k] = L[i];
             i++;
             k++;
         }
 
-        /* Copy remaining elements of R[] if any */
         while (j < n2) {
             arr[k] = R[j];
             j++;
@@ -59,8 +50,6 @@ class MergeSort
         }
     }
 
-    // Main function that sorts arr[l..r] using
-    // merge()
     void sort(int arr[], int l, int r)
     {
         if (l < r) {
@@ -90,44 +79,21 @@ class MergeSort
             throws IOException
     {
 
-        List<String> listOfStrings
-                = new ArrayList<String>();
-
-        // load data from file
-        BufferedReader bf = new BufferedReader(
-                new FileReader("input.txt"));
-
-        // read entire line as string
-        String line = bf.readLine();
-
-        // checking for end of file
-        while (line != null) {
-            listOfStrings.add(line);
-            line = bf.readLine();
+        Scanner scanner = new Scanner(new File("input.txt"));
+        int [] threadArray = new int [8];
+        int i = 0;
+        while(scanner.hasNextInt()){
+            threadArray[i++] = scanner.nextInt();
         }
-
-        // closing bufferreader object
-        bf.close();
-
-        // storing the data in arraylist to array
-        String[] array
-                = listOfStrings.toArray(new String[0]);
-
-        // printing each line of file
-        // which is stored in array
-        for (String str : array) {
-            System.out.println(str);
-        }
-
-        int arr[] = { 12, 11, 13, 5, 6, 7 };
 
         System.out.println("Given Array");
-        printArray(arr);
+        printArray(threadArray);
 
         MergeSort ob = new MergeSort();
-        ob.sort(arr, 0, arr.length - 1);
+        ob.sort(threadArray, 0, threadArray.length - 1);
 
         System.out.println("\nSorted array");
-        printArray(arr);
+        printArray(threadArray);
     }
 }
+
