@@ -3,6 +3,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Arrays;
 
 class MergeSort
 {
@@ -129,5 +130,17 @@ class MergeSort
 
         System.out.println("\nSorted array");
         printArray(arr);
+
+        for (int i = 0; i < array.length; i++) {
+            arr[i] = Integer.valueOf(array[i]);
+        }
+
+        // printing string
+        System.out.print("String : " + array);
+
+        // printing the Integer array
+        System.out.print("\nInteger array : "
+                + Arrays.toString(array));
     }
 }
+
