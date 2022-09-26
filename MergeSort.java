@@ -1,10 +1,5 @@
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Arrays;
 import java.util.Scanner;
 
 class MergeSort
@@ -94,6 +89,9 @@ class MergeSort
 
         System.out.println("\nSorted array");
         printArray(threadArray);
+
+        MultithreadHelper multithreadHelper = new MultithreadHelper();
+        multithreadHelper.start();
     }
 }
 
