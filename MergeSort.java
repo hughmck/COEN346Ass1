@@ -80,7 +80,7 @@ class MergeSort
         while(scanner.hasNextInt()){
             threadArray[i++] = scanner.nextInt();
         }
-
+        
         System.out.println("Given Array");
         printArray(threadArray);
 
