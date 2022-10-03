@@ -1,13 +1,15 @@
 public class MultithreadingDemo extends Thread {
-    private int threadID;
+    public int threadID;
 
     public void MultiThreadIDNumber (int threadID){
-        this.threadID = threadID;
+        threadID = threadID;
     }
-    @Override
+
+    final int NUMBER_OF_CORES = 8; //my computer has 8 cores, and can handle 8 kernel threads as long as they're ran concurrently
+
     public void run()
     {
-        for(int i = 1; i <= 8; i++){
+        for(int i = 1; i <= NUMBER_OF_CORES; i++){ //creating 8 threads
             System.out.println(i + " from thread number " + threadID);
         }
         try {

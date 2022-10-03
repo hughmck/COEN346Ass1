@@ -20,9 +20,8 @@ public class MergeSort extends Thread {
         System.out.println("\nSorted Array:");
         PrintArray(threadArray);
 
-        final int NUMBER_OF_CORES = 8; //my computer has 8 cores, and can handle 8 kernel threads as long as they're ran concurrently
-        for (int x = 0; x < NUMBER_OF_CORES; x++) { //creating 8 new branches
-            MultithreadingDemo object = new MultithreadingDemo();
+        for (int x = 0; x < 8; x++) { //running the MultithreadingDemoclass 8 times
+            MultithreadingDemo object = new MultithreadingDemo(); //calling a new MultiThreadingDemo object
             object.start(); //branches off a brand new thread, and executes the run method
             object.join();
         }
