@@ -1,94 +1,90 @@
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Scanner;
 
-class MergeSort {
-    void mergingArrays(int integerArray[], int leftArray, int middle, int rightArray)
-    {
-        int n1 = middle - leftArray + 1;
-        int n2 = rightArray - middle;
-
-        int L[] = new int[n1];
-        int R[] = new int[n2];
-
-        for (int i = 0; i < n1; ++i)
-            L[i] = integerArray[leftArray + i]; //adding all numbers less than n1 to the left array
-        for (int j = 0; j < n2; ++j) //adding al numbers less than n2 to the right array
-            R[j] = integerArray[middle + 1 + j];
-
-        int i = 0, j = 0;
-
-        int k = leftArray;
-        while (i < n1 && j < n2) {
-            if (L[i] <= R[j]) {
-                integerArray[k] = L[i];
-                i++;
-            }
-            else {
-                integerArray[k] = R[j];
-                j++;
-            }
-            k++;
-        }
-
-        while (i < n1) {
-            integerArray[k] = L[i];
-            i++;
-            k++;
-        }
-
-        while (j < n2) {
-            integerArray[k] = R[j];
-            j++;
-            k++;
-        }
-    }
-
-    void sort(int arr[], int l, int r)
-    {
-        if (l < r) {
-            // Find the middle point
-            int m =l+ (r-l)/2;
-
-            // Sort first and second halves
-            sort(arr, l, m);
-            sort(arr, m + 1, r);
-
-            // Merge the sorted halves
-            mergingArrays(arr, l, m, r);
-        }
-    }
-
-    static void printArray(int arr[])
-    {
-        int n = arr.length;
-        for (int i = 0; i < n; ++i)
-            System.out.print(arr[i] + " ");
-        System.out.println();
-    }
-
-    // Driver code
-    public static void main(String args[])
+public class MergeSort {
+    public static void main(String[] args)
             throws IOException
     {
-
         Scanner scanner = new Scanner(new File("input.txt"));
         int[] threadArray = new int [8];
         int i = 0;
         while(scanner.hasNextInt()){
             threadArray[i++] = scanner.nextInt();
         }
-        
-        System.out.println("Given Array");
+
+        System.out.println("Before:");
         printArray(threadArray);
 
-        MergeSort ob = new MergeSort();
-        ob.sort(threadArray, 0, threadArray.length - 1);
+        mergeSort(threadArray);
 
-        System.out.println("\nSorted array");
+        System.out.println("\nAfter:");
         printArray(threadArray);
+    }
 
+
+    private static void mergeSort(int[] inputArray) {
+        int inputLength = inputArray.length;
+
+        if (inputLength < 2) {
+            return;
+        }
+
+        int middle = inputLength / 2;
+        int[] leftHalf = new int[middle];
+        int[] rightHalf = new int[inputLength - middle];
+
+        for (int i = 0; i < middle; i++) {
+            leftHalf[i] = inputArray[i];
+        }
+        for (int i = middle; i < inputLength; i++) {
+            rightHalf[i - middle] = inputArray[i];
+        }
+
+        mergeSort(leftHalf);
+        mergeSort(rightHalf);
+
+        merge(inputArray, leftHalf, rightHalf);
+    }
+
+    private static void merge (int[] inputArray, int[] leftHalf, int[] rightHalf) {
+        int leftSize = leftHalf.length;
+        int rightSize = rightHalf.length;
+
+        int i = 0;
+        int j = 0;
+        int k = 0;
+
+        while (i < leftSize && j < rightSize) {
+            if (leftHalf[i] <= rightHalf[j]) {
+                inputArray[k] = leftHalf[i];
+                i++;
+            }
+            else {
+                inputArray[k] = rightHalf[j];
+                j++;
+            }
+            k++;
+        }
+
+        while (i < leftSize) {
+            inputArray[k] = leftHalf[i];
+            i++;
+            k++;
+        }
+
+        while (j < rightSize) {
+            inputArray[k] = rightHalf[j];
+            j++;
+            k++;
+        }
+
+    }
+
+    private static void printArray(int[] threadArray) {
+        for (int i = 0; i < threadArray.length; i++) {
+            System.out.println(threadArray[i]);
+        }
     }
 }
 
