@@ -1,45 +1,45 @@
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
-class MergeSort
-{
-    void merge(int arr[], int l, int m, int r)
+class MergeSort {
+    void mergingArrays(int integerArray[], int leftArray, int middle, int rightArray)
     {
-        int n1 = m - l + 1;
-        int n2 = r - m;
+        int n1 = middle - leftArray + 1;
+        int n2 = rightArray - middle;
 
         int L[] = new int[n1];
         int R[] = new int[n2];
 
         for (int i = 0; i < n1; ++i)
-            L[i] = arr[l + i];
-        for (int j = 0; j < n2; ++j)
-            R[j] = arr[m + 1 + j];
+            L[i] = integerArray[leftArray + i]; //adding all numbers less than n1 to the left array
+        for (int j = 0; j < n2; ++j) //adding al numbers less than n2 to the right array
+            R[j] = integerArray[middle + 1 + j];
 
         int i = 0, j = 0;
 
-        int k = l;
+        int k = leftArray;
         while (i < n1 && j < n2) {
             if (L[i] <= R[j]) {
-                arr[k] = L[i];
+                integerArray[k] = L[i];
                 i++;
             }
             else {
-                arr[k] = R[j];
+                integerArray[k] = R[j];
                 j++;
             }
             k++;
         }
 
         while (i < n1) {
-            arr[k] = L[i];
+            integerArray[k] = L[i];
             i++;
             k++;
         }
 
         while (j < n2) {
-            arr[k] = R[j];
+            integerArray[k] = R[j];
             j++;
             k++;
         }
@@ -56,11 +56,10 @@ class MergeSort
             sort(arr, m + 1, r);
 
             // Merge the sorted halves
-            merge(arr, l, m, r);
+            mergingArrays(arr, l, m, r);
         }
     }
 
-    /* A utility function to print array of size n */
     static void printArray(int arr[])
     {
         int n = arr.length;
@@ -75,7 +74,7 @@ class MergeSort
     {
 
         Scanner scanner = new Scanner(new File("input.txt"));
-        int [] threadArray = new int [8];
+        int[] threadArray = new int [8];
         int i = 0;
         while(scanner.hasNextInt()){
             threadArray[i++] = scanner.nextInt();
@@ -90,8 +89,6 @@ class MergeSort
         System.out.println("\nSorted array");
         printArray(threadArray);
 
-        MultithreadHelper multithreadHelper = new MultithreadHelper();
-        multithreadHelper.start();
     }
 }
 
