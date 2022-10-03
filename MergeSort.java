@@ -70,8 +70,9 @@ class MergeSort {
         int maxNumberOfThreads;
         if (exact) maxNumberOfThreads = length / NUMBER_OF_CORES; //if the number of threads can all be done concurrently, do it, if not
         else maxNumberOfThreads = length / (NUMBER_OF_CORES - 1);
-        maxNumberOfThreads = Math.max(maxNumberOfThreads, NUMBER_OF_CORES); //
-        // To keep track of threads
+        maxNumberOfThreads = Math.max(maxNumberOfThreads, NUMBER_OF_CORES); //maximum number of threads being executed cannot be greater than the number of cores
+
+
         final ArrayList<MergeSort> threads = new ArrayList<>();
 
         for(int i=0; i < length; i+=maxNumberOfThreads){
@@ -79,6 +80,8 @@ class MergeSort {
             int remain = (length)-i;
             int end = remain < maxNumberOfThreads? i+(remain-1): i+(maxNumberOfThreads-1);
             final MergeSort t = new MergeSort();
+            ob.sort(threadArray, 0, threadArray.length - 1);
+
             // Add the thread references to join them later
             threads.add(t);
         }
