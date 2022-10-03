@@ -4,7 +4,6 @@ public class MultithreadingDemo extends Thread {
     public void MultiThreadIDNumber (int threadID){
         this.threadID = threadID;
     }
-
     @Override
     public void run()
     {
@@ -19,7 +18,4 @@ public class MultithreadingDemo extends Thread {
             System.out.println("Exception is caught");
         }
     }
-}
-
-
 }
