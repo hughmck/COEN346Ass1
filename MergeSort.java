@@ -2,10 +2,9 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
 
-public class MergeSort {
+public class MergeSort extends Thread {
     public static void main(String[] args)
-            throws IOException
-    {
+            throws IOException, InterruptedException {
         Scanner scanner = new Scanner(new File("input.txt"));
         int[] threadArray = new int [8]; //taking input text and creating an integer array from it
         int i = 0;
@@ -14,16 +13,24 @@ public class MergeSort {
         }
 
         System.out.println("Given Array from input:");
-        printArray(threadArray);
+        PrintArray(threadArray);
 
-        mergeSort(threadArray);
+        MergeSort(threadArray);
 
         System.out.println("\nSorted Array:");
-        printArray(threadArray);
+        PrintArray(threadArray);
+
+        final int NUMBER_OF_CORES = 8; //my computer has 8 cores, and can handle 8 kernel threads as long as they're ran concurrently
+        for (int x = 0; x < NUMBER_OF_CORES; x++) { //creating 8 new branches
+            MultithreadingDemo object = new MultithreadingDemo();
+            object.start(); //branches off a brand new thread, and executes the run method
+            object.join();
+        }
     }
 
 
-    public static void mergeSort(int[] inputArray) {
+
+    public static void MergeSort(int[] inputArray) {
         int inputLength = inputArray.length;
 
         if (inputLength < 2) {
@@ -41,13 +48,13 @@ public class MergeSort {
             rightHalf[i - middle] = inputArray[i];
         }
 
-        mergeSort(leftHalf); //sorting the left half into ascending order
-        mergeSort(rightHalf); //sorting right half into ascending order
+        MergeSort(leftHalf); //sorting the left half into ascending order
+        MergeSort(rightHalf); //sorting right half into ascending order
 
-        merge(inputArray, leftHalf, rightHalf); //adding the array together ro create a new sorted array
+        Merge(inputArray, leftHalf, rightHalf); //adding the array together ro create a new sorted array
     }
 
-    private static void merge (int[] inputArray, int[] leftHalf, int[] rightHalf) {
+    public static void Merge(int[] inputArray, int[] leftHalf, int[] rightHalf) {
         int leftSize = leftHalf.length;
         int rightSize = rightHalf.length;
 
@@ -81,7 +88,7 @@ public class MergeSort {
 
     }
 
-    private static void printArray(int[] threadArray) {
+    public static void PrintArray(int[] threadArray) {
         for (int i = 0; i < threadArray.length; i++) {
             System.out.println(threadArray[i]);
         }
