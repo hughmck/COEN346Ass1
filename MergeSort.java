@@ -1,8 +1,12 @@
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
-class MergeSort extends Thread {
+class MergeSort {
+
+    private static final int NUMBER_OF_CORES = 8; //my computer has 8 cores, and can handle 8 kernel threads as long as they're ran concurrently
+
     void mergingArrays(int integerArray[], int leftArray, int middle, int rightArray)
     {
         int n1 = middle - leftArray + 1;
@@ -59,6 +63,45 @@ class MergeSort extends Thread {
         }
     }
 
+    public static void threadedSort(Integer[] array){
+        long time = System.currentTimeMillis();
+        final int length = array.length;
+        boolean exact = length%NUMBER_OF_CORES == 0;
+        int maxNumberOfThreads;
+        if (exact) maxNumberOfThreads = length / NUMBER_OF_CORES; //if the number of threads can all be done concurrently, do it, if not
+        else maxNumberOfThreads = length / (NUMBER_OF_CORES - 1);
+        maxNumberOfThreads = Math.max(maxNumberOfThreads, NUMBER_OF_CORES); //
+        // To keep track of threads
+        final ArrayList<MergeSort> threads = new ArrayList<>();
+
+        for(int i=0; i < length; i+=maxNumberOfThreads){
+            int begin = i;
+            int remain = (length)-i;
+            int end = remain < maxNumberOfThreads? i+(remain-1): i+(maxNumberOfThreads-1);
+            final MergeSort t = new MergeSort();
+            // Add the thread references to join them later
+            threads.add(t);
+        }
+        for(MergeSort t: threads){
+            try{
+                t.join();
+            } catch(InterruptedException ignored){}
+        }
+
+        for(int i=0; i < length; i+=maxNumberOfThreads){
+            int mid = i == 0? 0 : i-1;
+            int remain = (length)-i;
+            int end = remain < maxNumberOfThreads? i+(remain-1): i+(maxNumberOfThreads-1);
+            // System.out.println("Begin: "+0 + " Mid: "+ mid+ " End: "+ end + " MAXLIM = " + maxlim);
+            merge(array, 0, mid, end);
+        }
+        time = System.currentTimeMillis() - time;
+        System.out.println("Time spent for custom multi-threaded recursive merge_sort(): "+ time+ "ms");
+    }
+
+
+    // Typical recursive merge sort
+
     /* A utility function to print array of size n */
     static void printArray(int arr[])
     {
@@ -68,23 +111,13 @@ class MergeSort extends Thread {
         System.out.println();
     }
 
-    static void run(){
-        for(int i =1; i<= 5; i++){
-            System.out.println("thread test");
-            try {
-                Thread.sleep(1000);}
-            catch (InterruptedException e) {
-            }
-        }
-    }
-
     // Driver code
     public static void main(String args[])
             throws IOException
     {
 
         Scanner scanner = new Scanner(new File("input.txt"));
-        int [] threadArray = new int [8];
+        int[] threadArray = new int [8];
         int i = 0;
         while(scanner.hasNextInt()){
             threadArray[i++] = scanner.nextInt();
@@ -99,10 +132,8 @@ class MergeSort extends Thread {
         System.out.println("\nSorted array");
         printArray(threadArray);
 
-        MultithreadHelper multithreadHelper = new MultithreadHelper();
-        multithreadHelper.start();
 
-        run();
+
     }
 }
 
