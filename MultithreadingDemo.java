@@ -10,7 +10,7 @@ public class MultithreadingDemo extends Thread {
     public void run()
     {
         for(int i = 1; i <= NUMBER_OF_CORES; i++){ //creating 8 threads
-            System.out.println(i + " from thread number " + threadID);
+            System.out.println(i + " from thread number " + threadID); //threadID does not actually change, stays at 0
         }
         try {
             Thread.sleep(1000);
