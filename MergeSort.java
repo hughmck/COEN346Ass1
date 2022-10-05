@@ -6,44 +6,40 @@ import java.util.Scanner;
 public class MergeSort extends Thread {
 
     private static class SortThreads extends Thread{
-        SortThreads(Integer[] array, beg, end){
+        SortThreads(int[] inputArray, int[] leftHalf, int[] rightHalf){
             super(()->{
-                MergeSort.Merge(array, begin, end);
+                MergeSort.Merge(inputArray, leftHalf, rightHalf);
             });
             this.start();
         }
     }
 
-    public static void threadedSort(Integer[] array){
-        // For performance - get current time in millis before starting
+    public static void threadedSort (int[] threadArray){
         long time = System.currentTimeMillis();
-        final int length = array.length;
-        // Workload per thread (chunk_of_data) = total_elements/core_count
-        // if the no of elements exactly go into no of available threads,
-        // then divide work equally,
-        // else if some remainder is present, then assume we have (actual_threads-1) available workers
-        // and assign the remaining elements to be worked upon by the remaining 1 actual thread.
+
+        final int length = threadArray.length;
+
         boolean exact = length%8 == 0;
+
         int maxlim = exact? length/8: length/(8-1);
-        // if workload is less and no more than 1 thread is required for work, then assign all to 1 thread
-        maxlim = maxlim < 8? 8 : maxlim;
-        // To keep track of threads
+
+        maxlim = Math.max(maxlim, 8);
+
         final ArrayList<SortThreads> threads = new ArrayList<>();
-        // Since each thread is independent to work on its assigned chunk,
+
         // spawn threads and assign their working index ranges
         // ex: for 16 element list, t1 = 0-3, t2 = 4-7, t3 = 8-11, t4 = 12-15
         for(int i=0; i < length; i+=maxlim){
             int beg = i;
             int remain = (length)-i;
-            int end = remain < maxlim? i+(remain-1): i+(maxlim-1);
-            final SortThreads t = new SortThreads(array, beg, end);
-            // Add the thread references to join them later
-            threads.add(t);
+            int end;
+            if (remain < maxlim) end = i + (remain - 1);
+            else end = i + (maxlim - 1);
+            // final SortThreads t = new SortThreads(threadArray, beg, end);
+          //  threads.add(t);
         }
         for(Thread t: threads){
             try{
-                // This implementation of merge requires, all chunks worked by threads to be sorted first.
-                // so we wait until all threads complete
                 t.join();
             } catch(InterruptedException ignored){}
         }
@@ -52,8 +48,7 @@ public class MergeSort extends Thread {
             int mid = i == 0? 0 : i-1;
             int remain = (length)-i;
             int end = remain < maxlim? i+(remain-1): i+(maxlim-1);
-            // System.out.println("Begin: "+0 + " Mid: "+ mid+ " End: "+ end + " MAXLIM = " + maxlim);
-            MergeSort.Merge(array, mid, end);
+          //  MergeSort.Merge(threadArray, mid, end);
         }
         time = System.currentTimeMillis() - time;
         System.out.println("Time spent for custom multi-threaded recursive merge_sort(): "+ time+ "ms");
