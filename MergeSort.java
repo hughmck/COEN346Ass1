@@ -5,55 +5,54 @@ import java.util.Scanner;
 
 public class MergeSort extends Thread {
 
-    private static class SortThreads extends Thread{
-        SortThreads(int[] inputArray, int[] leftHalf, int[] rightHalf){
-            super(()->{
-                MergeSort.Merge(inputArray, leftHalf, rightHalf);
-            });
-            this.start();
-        }
-    }
-
-    public static void threadedSort (int[] threadArray){
-        long time = System.currentTimeMillis();
-
-        final int length = threadArray.length;
-
-        boolean exact = length%8 == 0;
-
-        int maxlim = exact? length/8: length/(8-1);
-
-        maxlim = Math.max(maxlim, 8);
-
-        final ArrayList<SortThreads> threads = new ArrayList<>();
-
-        // spawn threads and assign their working index ranges
-        // ex: for 16 element list, t1 = 0-3, t2 = 4-7, t3 = 8-11, t4 = 12-15
-        for(int i=0; i < length; i+=maxlim){
-            int beg = i;
-            int remain = (length)-i;
-            int end;
-            if (remain < maxlim) end = i + (remain - 1);
-            else end = i + (maxlim - 1);
-            // final SortThreads t = new SortThreads(threadArray, beg, end);
-          //  threads.add(t);
-        }
-        for(Thread t: threads){
-            try{
-                t.join();
-            } catch(InterruptedException ignored){}
-        }
-
-        for(int i=0; i < length; i+=maxlim){
-            int mid = i == 0? 0 : i-1;
-            int remain = (length)-i;
-            int end = remain < maxlim? i+(remain-1): i+(maxlim-1);
-          //  MergeSort.Merge(threadArray, mid, end);
-        }
-        time = System.currentTimeMillis() - time;
-        System.out.println("Time spent for custom multi-threaded recursive merge_sort(): "+ time+ "ms");
-    }
-
+//    private static class SortThreads extends Thread{
+//        SortThreads(int[] inputArray, int[] leftHalf, int[] rightHalf){
+//            super(()->{
+//                MergeSort.Merge(inputArray, leftHalf, rightHalf);
+//            });
+//            this.start();
+//        }
+//    }
+//
+//    public static void threadedSort (int[] threadArray){
+//        long time = System.currentTimeMillis();
+//
+//        final int length = threadArray.length;
+//
+//        boolean exact = length%8 == 0;
+//
+//        int maxlim = exact? length/8: length/(8-1);
+//
+//        maxlim = Math.max(maxlim, 8);
+//
+//        final ArrayList<SortThreads> threads = new ArrayList<>();
+//
+//        // spawn threads and assign their working index ranges
+//        // ex: for 16 element list, t1 = 0-3, t2 = 4-7, t3 = 8-11, t4 = 12-15
+//        for(int i=0; i < length; i+=maxlim){
+//            int beg = i;
+//            int remain = (length)-i;
+//            int end;
+//            if (remain < maxlim) end = i + (remain - 1);
+//            else end = i + (maxlim - 1);
+//            // final SortThreads t = new SortThreads(threadArray, beg, end);
+//          //  threads.add(t);
+//        }
+//        for(Thread t: threads){
+//            try{
+//                t.join();
+//            } catch(InterruptedException ignored){}
+//        }
+//
+//        for(int i=0; i < length; i+=maxlim){
+//            int mid = i == 0? 0 : i-1;
+//            int remain = (length)-i;
+//            int end = remain < maxlim? i+(remain-1): i+(maxlim-1);
+//          //  MergeSort.Merge(threadArray, mid, end);
+//        }
+//        time = System.currentTimeMillis() - time;
+//        System.out.println("Time spent for custom multi-threaded recursive merge_sort(): "+ time+ "ms");
+//    }
 
     public static void main(String[] args)
             throws IOException, InterruptedException {
@@ -72,11 +71,11 @@ public class MergeSort extends Thread {
         System.out.println("\nSorted Array:");
         PrintArray(threadArray);
 
-        for (int x = 0; x < 8; x++) { //running the MultithreadingDemoclass 8 times
-            MultithreadingDemo object = new MultithreadingDemo(); //calling a new MultiThreadingDemo object
-            object.start(); //branches off a brand new thread, and executes the run method
-            object.join();
-        }
+//        for (int x = 0; x < 8; x++) { //running the MultithreadingDemoclass 8 times
+//            MultithreadingDemo object = new MultithreadingDemo(); //calling a new MultiThreadingDemo object
+//            object.start(); //branches off a brand new thread, and executes the run method
+//            object.join();
+//        }
     }
 
 
