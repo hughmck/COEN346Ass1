@@ -17,7 +17,10 @@ public class Driver {
         PrintArray(threadArray);
 
         MergeSortThread sortArray = new MergeSortThread(threadArray); //creating MergeSortThread object to pass array from input.txt
-        sortArray.start(); //starting process
+        
+        //starting process and invokes the run()
+        
+        sortArray.start(); 
         sortArray.join();
         try
         {
@@ -27,6 +30,7 @@ public class Driver {
             e.printStackTrace();
         }
     }
+    
     public static void PrintArray(int[] threadArray) {
         for (int i = 0; i < threadArray.length; i++) {
             System.out.println(threadArray[i]);
