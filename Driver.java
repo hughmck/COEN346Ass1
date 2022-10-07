@@ -6,7 +6,7 @@ public class Driver {
 
     public static void main(String[] args)
             throws IOException, InterruptedException {
-        Scanner scanner = new Scanner(new File("input.txt"));
+        Scanner scanner = new Scanner(new File("input.txt")); //reads each line of the input file
         int[] threadArray = new int [8]; //taking input text and creating an integer array from it
         int i = 0;
         while(scanner.hasNextInt()){    //storing data in threadArray
