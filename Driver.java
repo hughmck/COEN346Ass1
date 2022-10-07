@@ -9,7 +9,7 @@ public class Driver {
         Scanner scanner = new Scanner(new File("input.txt"));
         int[] threadArray = new int [8]; //taking input text and creating an integer array from it
         int i = 0;
-        while(scanner.hasNextInt()){
+        while(scanner.hasNextInt()){    //storing data in threadArray
             threadArray[i++] = scanner.nextInt();
         }
 
