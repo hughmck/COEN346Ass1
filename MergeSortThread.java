@@ -36,37 +36,38 @@ public class MergeSortThread extends  Thread {
 
     }
 
-    public static void Merge(int[] arrayOfStrings, int[] left, int[] right) {
-        int leftArraySize = left.length;
+    public static void Merge(int[] arrayOfStrings, int[] left, int[] right) { //takes the integer array as an argument, as well as left array and right array
+        int leftArraySize = left.length; //initializes the length of the left and right array
         int rightArraySize = right.length;
 
-        int x = 0;
-        int y = 0;
-        int z = 0;
+        //need three variables, one to iterate through left array, one to go through right array, and one for final merged array
+        int x = 0; //left array
+        int y = 0;//right array
+        int z = 0; //merged array
 
-        while (x < leftArraySize && y < rightArraySize) {
-            if (left[x] <= right[y]) {
-                arrayOfStrings[z] = left[x];
-                x++;
+        while (x < leftArraySize && y < rightArraySize) { //looping through left and right array
+            if (left[x] <= right[y]) { //comparing the elements in left array to the right array
+                arrayOfStrings[z] = left[x]; //if left value is smaller than the right value, add it to the merged array
+                x++; //keep going through left array
             }
             else {
-                arrayOfStrings[z] = right[y];
+                arrayOfStrings[z] = right[y];  //adding values that are larger into right side of array
                 y++;
             }
-            z++;
+            z++; //iterating through merged array
         }
 
         while (x < leftArraySize) {
             arrayOfStrings[z] = left[x];
             x++;
-            z++;
+            z++; //adding the smallest values in left array into the array of strings
         }
 
         while (y < rightArraySize) {
-            arrayOfStrings[z] = right[y];
+            arrayOfStrings[z] = right[y]; //adding the larger values from the right array into array of strings
             y++;
             z++;
-        }
+        } //the merge method will now have combined both arrays in an ascending order
     }
 
     public String arrayToString(int[] array)
