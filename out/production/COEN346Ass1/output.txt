@@ -1,0 +1,51 @@
+Given Array from input:
+3304
+8221
+26849
+14038
+1509
+6367
+7856
+21362
+Thread 24 is starting 3304, 8221, 26849, 14038, 1509, 6367, 7856, 21362, 
+Thread 25 is starting 3304, 8221, 26849, 14038, 
+Thread 26 is starting 1509, 6367, 7856, 21362, 
+Thread 27 is starting 3304, 8221, 
+Thread 29 is starting 1509, 6367, 
+Thread 28 is starting 26849, 14038, 
+Thread 31 is starting 3304, 
+Thread 33 is starting 1509, 
+Thread 31 is finished 3304, 
+Thread 34 is starting 6367, 
+Thread 33 is finished 1509, 
+Thread 32 is starting 8221, 
+Thread 34 is finished 6367, 
+Thread 32 is finished 8221, 
+Thread 29 is finished 1509, 6367, 
+Thread 35 is starting 26849, 
+Thread 27 is finished 3304, 8221, 
+Thread 30 is starting 7856, 21362, 
+Thread 35 is finished 26849, 
+Thread 36 is starting 14038, 
+Thread 36 is finished 14038, 
+Thread 28 is finished 14038, 26849, 
+Thread 25 is finished 3304, 8221, 14038, 26849, 
+Thread 37 is starting 7856, 
+Thread 37 is finished 7856, 
+Thread 38 is starting 21362, 
+Thread 38 is finished 21362, 
+Thread 30 is finished 7856, 21362, 
+Thread 26 is finished 1509, 6367, 7856, 21362, 
+Thread 24 is finished 1509, 3304, 6367, 7856, 8221, 14038, 21362, 26849, 
+
+Sorted Array:
+1509
+3304
+6367
+7856
+8221
+14038
+21362
+26849
+
+Process finished with exit code 0
