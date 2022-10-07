@@ -36,36 +36,36 @@ public class MergeSortThread extends  Thread {
 
     }
 
-    public static void Merge(int[] inputArray, int[] leftHalf, int[] rightHalf) {
-        int leftSize = leftHalf.length;
-        int rightSize = rightHalf.length;
+    public static void Merge(int[] arrayOfStrings, int[] left, int[] right) {
+        int leftArraySize = left.length;
+        int rightArraySize = right.length;
 
-        int i = 0;
-        int j = 0;
-        int k = 0;
+        int x = 0;
+        int y = 0;
+        int z = 0;
 
-        while (i < leftSize && j < rightSize) {
-            if (leftHalf[i] <= rightHalf[j]) {
-                inputArray[k] = leftHalf[i];
-                i++;
+        while (x < leftArraySize && y < rightArraySize) {
+            if (left[x] <= right[y]) {
+                arrayOfStrings[z] = left[x];
+                x++;
             }
             else {
-                inputArray[k] = rightHalf[j];
-                j++;
+                arrayOfStrings[z] = right[y];
+                y++;
             }
-            k++;
+            z++;
         }
 
-        while (i < leftSize) {
-            inputArray[k] = leftHalf[i];
-            i++;
-            k++;
+        while (x < leftArraySize) {
+            arrayOfStrings[z] = left[x];
+            x++;
+            z++;
         }
 
-        while (j < rightSize) {
-            inputArray[k] = rightHalf[j];
-            j++;
-            k++;
+        while (y < rightArraySize) {
+            arrayOfStrings[z] = right[y];
+            y++;
+            z++;
         }
     }
 
