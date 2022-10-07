@@ -35,7 +35,7 @@ public class MergeSortThread extends  Thread {
         System.out.println("Thread " + this.getId() + " is finished " + arrayToString(array)); //ouputs that the thread is done and what the worked on segment of the array looks like
 
     }
-
+//Function to merge data after sorting
     public static void Merge(int[] inputArray, int[] leftHalf, int[] rightHalf) {
         int leftSize = leftHalf.length;
         int rightSize = rightHalf.length;
@@ -43,7 +43,7 @@ public class MergeSortThread extends  Thread {
         int i = 0;
         int j = 0;
         int k = 0;
-
+//checking elements from both the arrays :left half and right half and storing the smallest one
         while (i < leftSize && j < rightSize) {
             if (leftHalf[i] <= rightHalf[j]) {
                 inputArray[k] = leftHalf[i];
@@ -55,26 +55,28 @@ public class MergeSortThread extends  Thread {
             }
             k++;
         }
-
+        
+//checking elements from the left half
         while (i < leftSize) {
             inputArray[k] = leftHalf[i];
             i++;
             k++;
         }
-
+//checking elements from the right half
         while (j < rightSize) {
             inputArray[k] = rightHalf[j];
             j++;
             k++;
         }
     }
-
+    
+//updating orginial array
     public String arrayToString(int[] array)
     {
         String output = "";
         for (int i = 0; i < array.length ; i++)
         {
-            output += Integer.toString(array[i]) + ", ";
+            output += Integer.toString(array[i]) + ", "; //sorted elements to an output file
         }
         return output;
     }
