@@ -16,12 +16,12 @@ public class Driver {
         System.out.println("Given Array from input:");
         PrintArray(threadArray);
 
-        MergeSortThread firstThread = new MergeSortThread(threadArray);
-        firstThread.start();
-        firstThread.join();
+        MergeSortThread sortArray = new MergeSortThread(threadArray); //creating MergeSortThread object to pass array from input.txt
+        sortArray.start(); //starting process
+        sortArray.join();
         try
         {
-            System.out.println("\nSorted Array:");
+            System.out.println("\nSorted Array:"); //printing out array
             PrintArray(threadArray);
         } catch (Exception e) {
             e.printStackTrace();
