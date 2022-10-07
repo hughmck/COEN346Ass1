@@ -16,12 +16,12 @@ public class MergeSortFork {
             }
 
             System.out.println("Given Array from input:");
-            MergeSort.PrintArray(array);
+            PrintArray(array);
 
             mergeSortFork(array);
 
             System.out.println("\nSorted Array:");
-            MergeSort.PrintArray(array);
+            PrintArray(array);
         }
 
         public static void mergeSortFork(int[] array)
@@ -30,6 +30,12 @@ public class MergeSortFork {
             ForkJoinPool pool = new ForkJoinPool();
             pool.invoke(mainTask);
         }
+
+    public static void PrintArray(int[] threadArray) {
+        for (int i = 0; i < threadArray.length; i++) {
+            System.out.println(threadArray[i]);
+        }
+    }
 
     public static void Merge(int[] inputArray, int[] leftHalf, int[] rightHalf) {
         int leftSize = leftHalf.length;
